@@ -1,42 +1,10 @@
 import os
 import shutil
 import pyAesCrypt
-import time
 import subprocess
 
 
-def core(password1):
-    dir = 1
-    rename = 1
-    folder = '/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/'
-    dir_photo = '/storage/emulated/0/DCIM/Camera/'
-    while True:
-        if not os.path.exists(folder + str(dir)):
-            os.makedirs(folder + str(dir))
-        for item1 in os.listdir(dir_photo):
-            fol1 = os.listdir(folder + str(dir))
-            fol1 = len(fol1)
-            if not fol1 == 2:
-                time.sleep(1)
-                shutil.move(os.path.join(dir_photo, item1), folder + str(dir))
-                fol1 = os.listdir(folder + str(dir))
-                fol1 = len(fol1)
-                if fol1 == 2:
-                    for item2 in os.listdir(folder + str(dir)):
-                        # Gq1N22U8LkYa5RxKHyIR
-                        os.rename(os.path.join(folder + str(dir), item2), os.path.join(folder + str(dir), str(rename) + '.jpg'))
-                        rename += 1
-                    geo = input('Geo: ')
-                    with open(folder + str(dir) + '/1.txt', 'w') as w:
-                        w.write(str(geo))
-                        w.close()
-                    subprocess.call('clear', shell=True)
-                    walking_by_dirs(folder + str(dir), password1)
-                    file_jpg = f'/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/{dir}/1.jpg'
-                    rename = 1
-                    dir += 1
-
-
+#------------------------
 def encryption(file, password):
     buffer_size = 512 * 1024
     pyAesCrypt.encryptFile(
@@ -46,8 +14,7 @@ def encryption(file, password):
         buffer_size
     )
     os.remove(file)
-
-
+#------------------------
 def walking_by_dirs(Dir_ForEncryption, password):
     for name in os.listdir(Dir_ForEncryption):
         path = os.path.join(Dir_ForEncryption, name)
@@ -56,9 +23,7 @@ def walking_by_dirs(Dir_ForEncryption, password):
                 encryption(path, password)
             if name.endswith(".txt"):
                 encryption(path, password)
-
-# __________________
-
+#------------------------
 def decryption(file, password):
     buffer_size = 512 * 1024
     pyAesCrypt.decryptFile(
@@ -67,8 +32,7 @@ def decryption(file, password):
         password,
         buffer_size
     )
-
-
+#------------------------
     os.remove(file)
 def walking_by_dir(dir, password):
     for name in os.listdir(dir):
@@ -80,3 +44,45 @@ def walking_by_dir(dir, password):
                 print(ex)
         else:
             walking_by_dirs(path, password)
+#------------------------
+def correct():
+    geo = input('Geo: ')
+    with open(folder + str(num_dir) + '/11.txt', 'w') as w:
+        w.write(str(geo))
+        w.close()
+#------------------------
+password = '123'
+num = 4
+#------
+num_dir = 1
+remane_file = 0
+remane_file_txt = '11'
+#------------------------
+folder = 'C:/Users/D.Gas/Desktop/test/crypt/'
+dcim = 'C:/Users/D.Gas/Desktop/test/DCIM'
+#------------------------
+def core(password, num):
+    while True:
+        if not os.path.exists(folder + str(num_dir)):
+            os.makedirs(folder + str(num_dir))
+#---------------------------------------
+        for item in os.listdir(dcim):
+            shutil.move(os.path.join(dcim, item), folder + str(num_dir))
+            walking_by_dirs(folder + str(num_dir), password)
+            for item1 in os.listdir(folder + str(num_dir)):
+                if item1.endswith(".crp"):
+                    os.rename(os.path.join(folder + str(num_dir), item1), os.path.join(folder + str(num_dir), str(remane_file)))
+                    remane_file += 1
+            fol = os.listdir(folder + str(num_dir))
+            fol = len(fol)
+            if fol == num:
+                remane_file = 0
+                correct()
+                walking_by_dirs(folder + str(num_dir), password)
+                #------------------------
+                for item2 in os.listdir(folder + str(num_dir)):
+                    if item2.endswith(".crp"):
+                        os.rename(os.path.join(folder + str(num_dir), item2), os.path.join(folder + str(num_dir), remane_file_txt))
+                #------------------------
+                num_dir += 1
+#---------------------------------------
