@@ -4,74 +4,64 @@ import shutil
 import subprocess
 import random
 import zipfile
+import pyperclip
 
 from core import *
 
 
-dir1 = '/storage/emulated/0/DCIM/Camera/'
-dir2 = '/storage/emulated/0/DCIM/Camera1/'
-container = '/storage/emulated/0/Music/data'
-rename_container = '/storage/emulated/0/Books/Base_linux.pdf'
-pas1 = ''
+subprocess.call('cls', shell=True)
+print('1. On toll')
+print('2. Rename')
+print('3. Decrypt files')
+print('4. Archive')
 
-subprocess.call('clear', shell=True)
-print('1. on program')
-print('2. packing')
-print('3. decrypt folder')
-print('4. rename')
-print('5. delete folder')
-ch = int(input(': '))
-if ch == 1:
-    subprocess.call('clear', shell=True)
-    pas1 = ''
-    list = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789'
-    subprocess.call('clear', shell=True)
-    for item in range(20):
-        pas1 += random.choice(list)
+choice = input(': ')
+subprocess.call('cls', shell=True)
+
+if choice == '1':
+    list = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890'
+    password = ''
+    num_choice = int(input('Number of files in one package: '))
+    for item in range(25):
+        password += random.choice(str(list))
     print()
     print()
-    print('---------->', pas1)
+    print('Cope password ----------------->   ', password)
     time.sleep(10)
-    subprocess.call('clear', shell=True)
-    # !----
-    core(pas1)
-    # !----
+    subprocess.call('cls', shell=True)
+    core(password, num_choice)
 
+if choice == '2':
+    num = 1
+    path = f'C:/Users/Mr.Gas/Desktop/test/crypt/{num}'
 
-if ch == 2:
-    subprocess.call('clear', shell=True)
-    for item in os.listdir(dir1):
-        shutil.move(os.path.join(dir1, item), dir2)
+    number_of_files = f'C:/Users/Mr.Gas/Desktop/test/crypt/'
+    num_dir_file = len(os.listdir(number_of_files))
 
+    for item in range(num_dir_file):
+        path = f'C:/Users/Mr.Gas/Desktop/test/crypt/{num}'
+        for item1 in os.listdir(path):
+            if item1 == str(11):
+                os.rename(os.path.join(path, item1), os.path.join(path, str(item1) + '.txt.crp'))
+            else:
+                os.rename(os.path.join(path, item1), os.path.join(path, str(item1) + '.jpg.crp'))
+        num += 1
 
-if ch == 3:
-    subprocess.call('clear', shell=True)
-    folder = '/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/'
-    for item in os.listdir(folder):
-        print(item)
-    cho = int(input('Choice folder: '))
-    subprocess.call('clear', shell=True)
-    pas3 = input('Password: ')
-    dir3 = f'/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/{cho}'
-    walking_by_dir(dir3, pas3)
+if choice == '3':
+    password1 = input('Enter password: ')
+    num = 1
+    path = f'C:/Users/Mr.Gas/Desktop/test/crypt/{num}'
+    number_of_files = f'C:/Users/Mr.Gas/Desktop/test/crypt/'
+    num_dir_file = len(os.listdir(number_of_files))
+    for item in range(num_dir_file):
+        path = f'C:/Users/Mr.Gas/Desktop/test/crypt/{num}'
+        walking_by_dir(path, password1)
+        num += 1
 
-
-if ch == 4:
-    folder = '/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/'
-    zip = '/storage/emulated/0/Books/data,zip'
-    z = zipfile.ZipFile(zip, 'a')
-    for root, dirs, files in os.walk(folder):
+if choice == '4':
+    dir_file = 'C:/Users/Mr.Gas/Desktop/test/zipfille/crypt'
+    for folder, subfolders, files in os.walk(dir_file):
         for file in files:
-            z.write(os.path.join(root,file))
-    z.close()
-    for item in os.listdir(folder):
-        shutil.rmtree(os.path.join(folder, item))
-    os.rename(zip, rename_container)
-
-
-
-if ch == 5:
-    subprocess.call('clear', shell=True)
-    dir4 = f'/storage/emulated/0/Android/data/com.rarlab.rar/files/new/cr/'
-    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), dir4)
-    shutil.rmtree(path)
+            fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), dir_file), compress_type = zipfile.ZIP_DEFLATED)
+            os.remove(os.path.join(folder, file))
+    fantasy_zip.close()

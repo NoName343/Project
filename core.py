@@ -2,6 +2,7 @@ import os
 import shutil
 import pyAesCrypt
 import subprocess
+import pyperclip
 
 
 #------------------------
@@ -32,8 +33,8 @@ def decryption(file, password):
         password,
         buffer_size
     )
-#------------------------
     os.remove(file)
+#------------------------
 def walking_by_dir(dir, password):
     for name in os.listdir(dir):
         path = os.path.join(dir, name)
@@ -47,21 +48,25 @@ def walking_by_dir(dir, password):
 #------------------------
 def correct():
     geo = input('Geo: ')
+    pyperclip.copy('Text')
+    subprocess.call('cls', shell=True)
     with open(folder + str(num_dir) + '/11.txt', 'w') as w:
         w.write(str(geo))
         w.close()
 #------------------------
-password = '123'
-num = 4
-#------
-num_dir = 1
-remane_file = 0
-remane_file_txt = '11'
-#------------------------
-folder = 'C:/Users/D.Gas/Desktop/test/crypt/'
-dcim = 'C:/Users/D.Gas/Desktop/test/DCIM'
+folder = 'C:/Users/Mr.Gas/Desktop/test/crypt/'
+dcim = 'C:/Users/Mr.Gas/Desktop/test/DCIM'
 #------------------------
 def core(password, num):
+    global num_dir
+    num_dir = 1
+
+    global remane_file
+    remane_file = 0
+
+    global remane_file_txt
+    remane_file_txt = '11'
+
     while True:
         if not os.path.exists(folder + str(num_dir)):
             os.makedirs(folder + str(num_dir))
